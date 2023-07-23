@@ -1,0 +1,85 @@
+$schema: "http://json-schema.org/draft-06/schema#"
+
+description: snakemake configuration file
+
+type: object
+
+properties:
+  samples:
+    type: object
+    properties:
+      metadata:
+        type: string
+        description: metadata file with first column as SRA ids
+      header:
+        type: boolean
+        description: indicate if header is present
+        default: False
+
+  threads:
+    type: integer
+    description: number of threads
+    default: 1
+
+  outdir:
+    type: string
+    description: output directory
+    default: "output/"
+
+  logs:
+    type: string
+    description: log directory
+    default: "logs/"
+
+  import:
+    type: boolean
+    description: Indicate if SRA should be used to import files. SRA is available as an external tool in this repo
+    default: False
+
+  trimming:
+    type: object
+    properties:
+      trim:
+        type: boolean
+        description: Indicate if trimming should be performed
+        default: False
+      adapters:
+        type: string
+        description: Fasta file with adapter sequences
+        default: "resources/adapters/NexteraPE-PE.fa"
+      seedMismatches:
+        type: integer
+        description: Maximum number of mismatched to be allowed in seed
+        default: 2
+      palindromeClipThreshold:
+        type: integer
+        description: Specifies how accurate the match between the two 'adapter ligated' reads must be for PE palindrome read alignment
+        default: 30
+      simpleClipThreshold:
+        type: integer
+        description: Specifies how accurate the match between any adapter etc. sequence must be against a read
+        default: 10
+      leading:
+        type: integer
+        description: Specifies the minimum quality required to keep a base at the beginning of read
+        default: 3
+      trailing:
+        type: integer
+        description: Specifies the minimum quality required to keep a base at the end of read
+        default: 3
+      windowSize:
+        type: integer
+        description: Specifies the number of bases to average across
+        default: 4
+      requiredQuality:
+        type: integer
+        description: Specifies the average quality required
+        default: 15
+      minlength:
+        type: integer
+        description: Specifies the minimum length of reads to be kept
+        default: 36
+
+
+required:
+  - samples
