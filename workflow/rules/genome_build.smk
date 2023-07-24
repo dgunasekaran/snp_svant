@@ -1,6 +1,6 @@
 import os
 
-rule bowtie_build:
+rule bowtie2_build:
     input:
         ref=os.path.abspath(config["reference"]["genome"])
     output:
@@ -20,7 +20,5 @@ rule bowtie_build:
         os.path.join(config["logs"], "bowtie2_build.log")
     threads:
         config["threads"]
-    conda:
-        "../envs/bowtie2.yaml"
     wrapper:
         "v2.2.1/bio/bowtie2/build"

@@ -32,6 +32,7 @@ if config["trimming"]["trim"]:
             '''
             mkdir -p {params.preprocess_dir}
             mkdir -p {params.trimming_dir}
+            echo "Read trimming"
             echo {wildcards.sample}
             trimmomatic PE -threads {threads} -phred33 -trimlog {log} -summary {params.summary_file} \
             {input.read_pair_1} {input.read_pair_2} \

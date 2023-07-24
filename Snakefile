@@ -19,6 +19,7 @@ report: "workflow/report/workflow.rst"
 include: "workflow/rules/data_dump.smk"
 include: "workflow/rules/trimming.smk"
 include: "workflow/rules/genome_build.smk"
+include: "workflow/rules/align.smk"
 include: "workflow/rules/common.smk"
 
 ##### Import samples based on config file #####
@@ -58,4 +59,8 @@ rule all:
         expand(os.path.join(os.path.dirname(config["reference"]["genome"]),
             os.path.splitext(os.path.basename(config["reference"]["genome"]))[0] + ".rev.{rev_index}.bt2"),
             rev_index=[1, 2]
+        ),
+        expand(
+            os.path.join(config["outdir"],"preprocessed/mapped/{sample}_aligned.bam"),
+            sample=SAMPLES
         )

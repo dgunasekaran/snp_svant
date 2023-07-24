@@ -12,7 +12,7 @@ logs: "test/logs"
 import: False
 
 trimming:
-  trim: FALSE
+  trim: False
   adapters: "resources/adapters/NexteraPE-PE.fa"
   seedMismatches: 2
   palindromeClipThreshold: 30
