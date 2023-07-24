@@ -5,13 +5,14 @@ samples:
 threads: 6
 
 outdir: "test/"
+input_dir: "test/raw/"
 
 logs: "test/logs"
 
-import: True
+import: False
 
 trimming:
-  trim: False
+  trim: True
   adapters: "resources/adapters/NexteraPE-PE.fa"
   seedMismatches: 2
   palindromeClipThreshold: 30

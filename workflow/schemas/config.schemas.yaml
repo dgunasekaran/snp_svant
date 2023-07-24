@@ -26,6 +26,11 @@ properties:
     description: output directory
     default: "output/"
 
+  input_dir:
+    type: string
+    description: input directory with raw fastq files
+    default: "output/raw/"
+
   logs:
     type: string
     description: log directory
@@ -79,6 +84,16 @@ properties:
         type: integer
         description: Specifies the minimum length of reads to be kept
         default: 36
+
+validate:
+  # Set up requirements based on the value of 'import'
+  - import:
+      when:  # Condition to check if 'import' is true
+        type: "boolean"
+        value: false
+      then:  # Requirements to enforce when 'import' is true
+        - input_dir:  # Require 'reference' to be provided
+            required: true
 
 
 required:

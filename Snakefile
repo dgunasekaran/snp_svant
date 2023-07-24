@@ -16,7 +16,8 @@ report: "workflow/report/workflow.rst"
 
 ##### Include Rules #####
 
-include: "workflow/rules/data_dump_external.smk"
+include: "workflow/rules/data_dump.smk"
+include: "workflow/rules/trimming.smk"
 include: "workflow/rules/common.smk"
 
 ##### Import samples based on config file #####
@@ -30,7 +31,8 @@ def get_samples():
 
 # Set SAMPLES based on config file
 if not config["import"]:
-    SAMPLES = glob_wildcards(os.path.join(config["outdir"], "raw/{sample}_1.fastq"))
+    wc = glob_wildcards(os.path.join(config["outdir"], "raw/{sample}_1.fastq"))
+    SAMPLES = [item for sublist in wc for item in sublist]
 else:
     SAMPLES = get_samples()["sample_name"].tolist()
 
@@ -40,6 +42,10 @@ rule all:
     input:
         expand(
             os.path.join(config["outdir"], "raw/{sample}_{read}.fastq"),
+            sample=SAMPLES,
+            read=[1, 2]
+        ),
+        expand(os.path.join(config["outdir"], "preprocessed/trimmomatic/{sample}_trimmed_{read}.fastq"),
             sample=SAMPLES,
             read=[1, 2]
         )
