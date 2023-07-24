@@ -16,7 +16,8 @@ report: "workflow/report/workflow.rst"
 
 ##### Include Rules #####
 
-include: "workflow/rules/data_dump.smk"
+include: "workflow/rules/data_dump_external.smk"
+include: "workflow/rules/common.smk"
 
 ##### Import samples based on config file #####
 
