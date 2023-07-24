@@ -18,6 +18,7 @@ report: "workflow/report/workflow.rst"
 
 include: "workflow/rules/data_dump.smk"
 include: "workflow/rules/trimming.smk"
+include: "workflow/rules/genome_build.smk"
 include: "workflow/rules/common.smk"
 
 ##### Import samples based on config file #####
@@ -36,6 +37,8 @@ if not config["import"]:
 else:
     SAMPLES = get_samples()["sample_name"].tolist()
 
+INDEX = list(range(1,5))
+
 ##### Target Rules #####
 
 rule all:
@@ -48,4 +51,11 @@ rule all:
         expand(os.path.join(config["outdir"], "preprocessed/trimmomatic/{sample}_trimmed_{read}.fastq"),
             sample=SAMPLES,
             read=[1, 2]
+        ),
+        expand(os.path.join(os.path.dirname(config["reference"]["genome"]),
+            os.path.splitext(os.path.basename(config["reference"]["genome"]))[0] + ".{index}.bt2"), index=INDEX
+        ),
+        expand(os.path.join(os.path.dirname(config["reference"]["genome"]),
+            os.path.splitext(os.path.basename(config["reference"]["genome"]))[0] + ".rev.{rev_index}.bt2"),
+            rev_index=[1, 2]
         )

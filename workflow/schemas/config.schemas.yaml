@@ -85,6 +85,13 @@ properties:
         description: Specifies the minimum length of reads to be kept
         default: 36
 
+  reference:
+    type: object
+    properties:
+      genome:
+        type: string
+        description: Genome fasta file to use as reference
+
 validate:
   # Set up requirements based on the value of 'import'
   - import:
@@ -98,3 +105,4 @@ validate:
 
 required:
   - samples
+  - reference

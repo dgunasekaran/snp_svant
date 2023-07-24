@@ -12,7 +12,7 @@ logs: "test/logs"
 import: False
 
 trimming:
-  trim: True
+  trim: FALSE
   adapters: "resources/adapters/NexteraPE-PE.fa"
   seedMismatches: 2
   palindromeClipThreshold: 30
@@ -22,3 +22,7 @@ trimming:
   windowSize: 4
   requiredQuality: 15
   minlength: 36
+
+reference:
+  genome: "resources/genome/C_albicans_SC5314_A21_current_chromosomes_without_mt.fasta"
+
