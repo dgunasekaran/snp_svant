@@ -2,7 +2,7 @@ samples:
   metadata: "test/metadata/test_samples.tsv"
   header: False
 
-threads: 6
+threads: 8
 
 outdir: "test/"
 input_dir: "test/raw/"

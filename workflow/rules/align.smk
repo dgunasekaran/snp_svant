@@ -33,4 +33,3 @@ rule reference_align:
         config["threads"]
     wrapper:
         "v2.2.1/bio/bowtie2/align"
-# bowtie2 -q -p 32 --local -x /phd_16tb/calbicans_biofilms/resources/bowtie2_index/calbicans_21/C_albicans_SC5314_A21_current_chromosomes_without_mt -1 /phd_16tb/calbicans_biofilms/data/raw/${strain}_1.fastq -2 /phd_16tb/calbicans_biofilms/data/raw/${strain}_2.fastq -S /phd_16tb/calbicans_biofilms/data/preprocessed/bowtie2/${strain}_aligned.sam; done 2>&1 >> /phd_16tb/calbicans_biofilms/data/preprocessed/bowtie2_local.log

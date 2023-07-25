@@ -20,6 +20,7 @@ include: "workflow/rules/data_dump.smk"
 include: "workflow/rules/trimming.smk"
 include: "workflow/rules/genome_build.smk"
 include: "workflow/rules/align.smk"
+include: "workflow/rules/samtools_sort.smk"
 include: "workflow/rules/common.smk"
 
 ##### Import samples based on config file #####
@@ -42,25 +43,111 @@ INDEX = list(range(1,5))
 
 ##### Target Rules #####
 
-rule all:
-    input:
-        expand(
-            os.path.join(config["outdir"], "raw/{sample}_{read}.fastq"),
-            sample=SAMPLES,
-            read=[1, 2]
-        ),
-        expand(os.path.join(config["outdir"], "preprocessed/trimmomatic/{sample}_trimmed_{read}.fastq"),
-            sample=SAMPLES,
-            read=[1, 2]
-        ),
-        expand(os.path.join(os.path.dirname(config["reference"]["genome"]),
-            os.path.splitext(os.path.basename(config["reference"]["genome"]))[0] + ".{index}.bt2"), index=INDEX
-        ),
-        expand(os.path.join(os.path.dirname(config["reference"]["genome"]),
-            os.path.splitext(os.path.basename(config["reference"]["genome"]))[0] + ".rev.{rev_index}.bt2"),
-            rev_index=[1, 2]
-        ),
-        expand(
-            os.path.join(config["outdir"],"preprocessed/mapped/{sample}_aligned.bam"),
-            sample=SAMPLES
-        )
+if config["import"] and config["trimming"]["trim"]:
+    rule all:
+        input:
+            expand(
+                os.path.join(config["outdir"], "raw/{sample}_{read}.fastq"),
+                sample=SAMPLES,
+                read=[1, 2]
+            ),
+            expand(os.path.join(config["outdir"], "preprocessed/trimmomatic/{sample}_trimmed_{read}.fastq"),
+                sample=SAMPLES,
+                read=[1, 2]
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/mapped/{sample}_aligned.bam"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["logs"],"bowtie2_metrics_{sample}.txt"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/mapped/{sample}_aligned_sorted.bam"),
+                sample=SAMPLES
+            ),
+            expand(os.path.join(os.path.dirname(config["reference"]["genome"]),
+                os.path.splitext(os.path.basename(config["reference"]["genome"]))[0] + ".{index}.bt2"),
+                index=INDEX
+            ),
+            expand(os.path.join(os.path.dirname(config["reference"]["genome"]),
+                os.path.splitext(os.path.basename(config["reference"]["genome"]))[0] + ".rev.{rev_index}.bt2"),
+                rev_index=[1, 2]
+            )
+elif not config["import"] and config["trimming"]["trim"]:
+    rule all:
+        input:
+            expand(os.path.join(config["outdir"], "preprocessed/trimmomatic/{sample}_trimmed_{read}.fastq"),
+                sample=SAMPLES,
+                read=[1, 2]
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/mapped/{sample}_aligned.bam"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["logs"],"bowtie2_metrics_{sample}.txt"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/mapped/{sample}_aligned_sorted.bam"),
+                sample=SAMPLES
+            ),
+            expand(os.path.join(os.path.dirname(config["reference"]["genome"]),
+                os.path.splitext(os.path.basename(config["reference"]["genome"]))[0] + ".{index}.bt2"),
+                index=INDEX
+            ),
+            expand(os.path.join(os.path.dirname(config["reference"]["genome"]),
+                os.path.splitext(os.path.basename(config["reference"]["genome"]))[0] + ".rev.{rev_index}.bt2"),
+                rev_index=[1, 2]
+            )
+elif config["import"] and not config["trimming"]["trim"]:
+    rule all:
+        input:
+            expand(
+                os.path.join(config["outdir"], "raw/{sample}_{read}.fastq"),
+                sample=SAMPLES,
+                read=[1, 2]
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/mapped/{sample}_aligned.bam"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["logs"],"bowtie2_metrics_{sample}.txt"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/mapped/{sample}_aligned_sorted.bam"),
+                sample=SAMPLES
+            ),
+            expand(os.path.join(os.path.dirname(config["reference"]["genome"]),
+                os.path.splitext(os.path.basename(config["reference"]["genome"]))[0] + ".{index}.bt2"),
+                index=INDEX
+            ),
+            expand(os.path.join(os.path.dirname(config["reference"]["genome"]),
+                os.path.splitext(os.path.basename(config["reference"]["genome"]))[0] + ".rev.{rev_index}.bt2"),
+                rev_index=[1, 2]
+            )
+else:
+    rule all:
+        input:
+            expand(
+                os.path.join(config["input_dir"],"{sample}_{read}.fastq"),
+                sample=SAMPLES,
+                read=[1, 2]
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/mapped/{sample}_aligned.bam"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["logs"],"bowtie2_metrics_{sample}.txt"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/mapped/{sample}_aligned_sorted.bam"),
+                sample=SAMPLES
+            )
+
