@@ -21,6 +21,9 @@ include: "workflow/rules/trimming.smk"
 include: "workflow/rules/genome_build.smk"
 include: "workflow/rules/align.smk"
 include: "workflow/rules/samtools_sort.smk"
+include: "workflow/rules/picard_markduplicates.smk"
+include: "workflow/rules/picard_add_readgroups.smk"
+include: "workflow/rules/picard_sort_bam.smk"
 include: "workflow/rules/common.smk"
 
 ##### Import samples based on config file #####
@@ -74,6 +77,14 @@ if config["import"] and config["trimming"]["trim"]:
             expand(os.path.join(os.path.dirname(config["reference"]["genome"]),
                 os.path.splitext(os.path.basename(config["reference"]["genome"]))[0] + ".rev.{rev_index}.bt2"),
                 rev_index=[1, 2]
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/markduplicates/{sample}_picard_marked_duplicates.bam"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/markduplicates/{sample}_sorted_dedup_reads.bam"),
+                sample=SAMPLES
             )
 elif not config["import"] and config["trimming"]["trim"]:
     rule all:
@@ -101,6 +112,14 @@ elif not config["import"] and config["trimming"]["trim"]:
             expand(os.path.join(os.path.dirname(config["reference"]["genome"]),
                 os.path.splitext(os.path.basename(config["reference"]["genome"]))[0] + ".rev.{rev_index}.bt2"),
                 rev_index=[1, 2]
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/markduplicates/{sample}_picard_marked_duplicates.bam"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/markduplicates/{sample}_sorted_dedup_reads.bam"),
+                sample=SAMPLES
             )
 elif config["import"] and not config["trimming"]["trim"]:
     rule all:
@@ -129,6 +148,14 @@ elif config["import"] and not config["trimming"]["trim"]:
             expand(os.path.join(os.path.dirname(config["reference"]["genome"]),
                 os.path.splitext(os.path.basename(config["reference"]["genome"]))[0] + ".rev.{rev_index}.bt2"),
                 rev_index=[1, 2]
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/markduplicates/{sample}_picard_marked_duplicates.bam"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/markduplicates/{sample}_sorted_dedup_reads.bam"),
+                sample=SAMPLES
             )
 else:
     rule all:
@@ -149,5 +176,12 @@ else:
             expand(
                 os.path.join(config["outdir"],"preprocessed/mapped/{sample}_aligned_sorted.bam"),
                 sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/markduplicates/{sample}_picard_marked_duplicates.bam"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/markduplicates/{sample}_sorted_dedup_reads.bam"),
+                sample=SAMPLES
             )
-
