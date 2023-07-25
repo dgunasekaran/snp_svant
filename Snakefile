@@ -77,14 +77,6 @@ if config["import"] and config["trimming"]["trim"]:
                 os.path.join(config["outdir"],"preprocessed/mapped/{sample}_aligned_sorted.bam"),
                 sample=SAMPLES
             ),
-            expand(os.path.join(os.path.dirname(config["reference"]["genome"]),
-                os.path.splitext(os.path.basename(config["reference"]["genome"]))[0] + ".{index}.bt2"),
-                index=INDEX
-            ),
-            expand(os.path.join(os.path.dirname(config["reference"]["genome"]),
-                os.path.splitext(os.path.basename(config["reference"]["genome"]))[0] + ".rev.{rev_index}.bt2"),
-                rev_index=[1, 2]
-            ),
             expand(
                 os.path.join(config["outdir"],"preprocessed/markduplicates/{sample}_picard_marked_duplicates.bam"),
                 sample=SAMPLES
@@ -110,11 +102,11 @@ if config["import"] and config["trimming"]["trim"]:
                 sample=SAMPLES
             ),
             expand(
-                os.path.join(config["outdir"],"preprocessed/hapcaller_r1/{sample}_filtered_snps.vcf"),
+                os.path.join(config["outdir"],"preprocessed/hapcaller_r1/{sample}_bqsr_snps.vcf"),
                 sample=SAMPLES
             ),
             expand(
-                os.path.join(config["outdir"],"preprocessed/hapcaller_r1/{sample}_filtered_indels.vcf"),
+                os.path.join(config["outdir"],"preprocessed/hapcaller_r1/{sample}_bqsr_indels.vcf"),
                 sample=SAMPLES
             )
 elif not config["import"] and config["trimming"]["trim"]:
@@ -136,14 +128,6 @@ elif not config["import"] and config["trimming"]["trim"]:
                 os.path.join(config["outdir"],"preprocessed/mapped/{sample}_aligned_sorted.bam"),
                 sample=SAMPLES
             ),
-            expand(os.path.join(os.path.dirname(config["reference"]["genome"]),
-                os.path.splitext(os.path.basename(config["reference"]["genome"]))[0] + ".{index}.bt2"),
-                index=INDEX
-            ),
-            expand(os.path.join(os.path.dirname(config["reference"]["genome"]),
-                os.path.splitext(os.path.basename(config["reference"]["genome"]))[0] + ".rev.{rev_index}.bt2"),
-                rev_index=[1, 2]
-            ),
             expand(
                 os.path.join(config["outdir"],"preprocessed/markduplicates/{sample}_picard_marked_duplicates.bam"),
                 sample=SAMPLES
@@ -169,11 +153,11 @@ elif not config["import"] and config["trimming"]["trim"]:
                 sample=SAMPLES
             ),
             expand(
-                os.path.join(config["outdir"],"preprocessed/hapcaller_r1/{sample}_filtered_snps.vcf"),
+                os.path.join(config["outdir"],"preprocessed/hapcaller_r1/{sample}_bqsr_snps.vcf"),
                 sample=SAMPLES
             ),
             expand(
-                os.path.join(config["outdir"],"preprocessed/hapcaller_r1/{sample}_filtered_indels.vcf"),
+                os.path.join(config["outdir"],"preprocessed/hapcaller_r1/{sample}_bqsr_indels.vcf"),
                 sample=SAMPLES
             )
 elif config["import"] and not config["trimming"]["trim"]:
@@ -196,14 +180,7 @@ elif config["import"] and not config["trimming"]["trim"]:
                 os.path.join(config["outdir"],"preprocessed/mapped/{sample}_aligned_sorted.bam"),
                 sample=SAMPLES
             ),
-            expand(os.path.join(os.path.dirname(config["reference"]["genome"]),
-                os.path.splitext(os.path.basename(config["reference"]["genome"]))[0] + ".{index}.bt2"),
-                index=INDEX
-            ),
-            expand(os.path.join(os.path.dirname(config["reference"]["genome"]),
-                os.path.splitext(os.path.basename(config["reference"]["genome"]))[0] + ".rev.{rev_index}.bt2"),
-                rev_index=[1, 2]
-            ),
+
             expand(
                 os.path.join(config["outdir"],"preprocessed/markduplicates/{sample}_picard_marked_duplicates.bam"),
                 sample=SAMPLES
@@ -229,11 +206,11 @@ elif config["import"] and not config["trimming"]["trim"]:
                 sample=SAMPLES
             ),
             expand(
-                os.path.join(config["outdir"],"preprocessed/hapcaller_r1/{sample}_filtered_snps.vcf"),
+                os.path.join(config["outdir"],"preprocessed/hapcaller_r1/{sample}_bqsr_snps.vcf"),
                 sample=SAMPLES
             ),
             expand(
-                os.path.join(config["outdir"],"preprocessed/hapcaller_r1/{sample}_filtered_indels.vcf"),
+                os.path.join(config["outdir"],"preprocessed/hapcaller_r1/{sample}_bqsr_indels.vcf"),
                 sample=SAMPLES
             )
 else:
@@ -281,10 +258,27 @@ else:
                 sample=SAMPLES
             ),
             expand(
-                os.path.join(config["outdir"],"preprocessed/hapcaller_r1/{sample}_filtered_snps.vcf"),
+                os.path.join(config["outdir"],"preprocessed/hapcaller_r1/{sample}_bqsr_snps.vcf"),
                 sample=SAMPLES
             ),
             expand(
-                os.path.join(config["outdir"],"preprocessed/hapcaller_r1/{sample}_filtered_indels.vcf"),
+                os.path.join(config["outdir"],"preprocessed/hapcaller_r1/{sample}_bqsr_indels.vcf"),
                 sample=SAMPLES
             )
+
+rule build:
+    input:
+        os.path.join(os.path.dirname(config["reference"]["genome"]),
+            os.path.splitext(os.path.basename(config["reference"]["genome"]))[0] + '.txt'),
+        os.path.join(os.path.dirname(config["reference"]["genome"]),
+            os.path.splitext(os.path.basename(config["reference"]["genome"]))[0] + '.dict'),
+        os.path.join(os.path.dirname(config["reference"]["genome"]),
+            os.path.splitext(os.path.basename(config["reference"]["genome"]))[0] + '.fasta.fai'),
+        expand(os.path.join(os.path.dirname(config["reference"]["genome"]),
+            os.path.splitext(os.path.basename(config["reference"]["genome"]))[0] + ".{index}.bt2"),
+            index=INDEX
+            ),
+        expand(os.path.join(os.path.dirname(config["reference"]["genome"]),
+            os.path.splitext(os.path.basename(config["reference"]["genome"]))[0] + ".rev.{rev_index}.bt2"),
+            rev_index=[1, 2]
+        )

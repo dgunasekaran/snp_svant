@@ -8,7 +8,8 @@ rule variant_calling_round_1:
         vcf=os.path.join(config["outdir"], "preprocessed/hapcaller_r1/{sample}_raw_variants.vcf"),
     log:
         os.path.join(config["logs"], "gatk_hc_round1_{sample}.log"),
-    threads: config["threads"]
+    threads:
+        config["threads"]
     resources:
         mem_mb=1024,
     wrapper:
