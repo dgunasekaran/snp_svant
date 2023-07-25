@@ -23,6 +23,20 @@ trimming:
   requiredQuality: 15
   minlength: 36
 
+snp_filters:
+  QD_filter: "QD < 2.0"
+  FS_filter: "FS > 60.0"
+  MQ_filter: "MQ < 40.0"
+  SOR_filter: "SOR > 4.0"
+  MQRankSum_filter: "MQRankSum < -12.5"
+  ReadPosRankSum_filter: "ReadPosRankSum < -8.0"
+
+indel_filters:
+  QD_filter: "QD < 2.0"
+  FS_filter: "FS > 200.0"
+  SOR_filter: "SOR > 10.0"
+
+
 reference:
   genome: "resources/genome/C_albicans_SC5314_A21_current_chromosomes_without_mt.fasta"
 

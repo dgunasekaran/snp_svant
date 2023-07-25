@@ -27,6 +27,10 @@ include: "workflow/rules/picard_sort_bam.smk"
 include: "workflow/rules/picard_collect_metrics.smk"
 include: "workflow/rules/picard_collect_insertsize.smk"
 include: "workflow/rules/samtools_depth.smk"
+include: "workflow/rules/samtools_index.smk"
+include: "workflow/rules/gatk_haplotypecaller.smk"
+include: "workflow/rules/gatk_selectvariants.smk"
+include: "workflow/rules/gatk_filtervariants.smk"
 include: "workflow/rules/common.smk"
 
 ##### Import samples based on config file #####
@@ -100,6 +104,18 @@ if config["import"] and config["trimming"]["trim"]:
             expand(
                 os.path.join(config["outdir"], "preprocessed/metrics/{sample}_depth_out.txt"),
                 sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/markduplicates/{sample}_sorted_dedup_reads.bam.bai"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/hapcaller_r1/{sample}_filtered_snps.vcf"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/hapcaller_r1/{sample}_filtered_indels.vcf"),
+                sample=SAMPLES
             )
 elif not config["import"] and config["trimming"]["trim"]:
     rule all:
@@ -146,6 +162,18 @@ elif not config["import"] and config["trimming"]["trim"]:
             ),
             expand(
                 os.path.join(config["outdir"], "preprocessed/metrics/{sample}_depth_out.txt"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/markduplicates/{sample}_sorted_dedup_reads.bam.bai"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/hapcaller_r1/{sample}_filtered_snps.vcf"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/hapcaller_r1/{sample}_filtered_indels.vcf"),
                 sample=SAMPLES
             )
 elif config["import"] and not config["trimming"]["trim"]:
@@ -195,6 +223,18 @@ elif config["import"] and not config["trimming"]["trim"]:
             expand(
                 os.path.join(config["outdir"], "preprocessed/metrics/{sample}_depth_out.txt"),
                 sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/markduplicates/{sample}_sorted_dedup_reads.bam.bai"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/hapcaller_r1/{sample}_filtered_snps.vcf"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/hapcaller_r1/{sample}_filtered_indels.vcf"),
+                sample=SAMPLES
             )
 else:
     rule all:
@@ -234,5 +274,17 @@ else:
             ),
             expand(
                 os.path.join(config["outdir"], "preprocessed/metrics/{sample}_depth_out.txt"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/markduplicates/{sample}_sorted_dedup_reads.bam.bai"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/hapcaller_r1/{sample}_filtered_snps.vcf"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/hapcaller_r1/{sample}_filtered_indels.vcf"),
                 sample=SAMPLES
             )

@@ -92,6 +92,33 @@ properties:
         type: string
         description: Genome fasta file to use as reference
 
+  snp_filters:
+    type: object
+    properties:
+      QD_filter:
+        type: string
+      FS_filter:
+        type: string
+      MQ_filter:
+        type: string
+      SOR_filter:
+        type: string
+      MQRankSum_filter:
+        type: string
+      ReadPosRankSum_filter:
+        type: string
+
+  indel_filters:
+    type: object
+    properties:
+      QD_filter:
+        type: string
+      FS_filter:
+        type: string
+      SOR_filter:
+        type: string
+
+
 validate:
   # Set up requirements based on the value of 'import'
   - import:
