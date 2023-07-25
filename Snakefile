@@ -24,6 +24,9 @@ include: "workflow/rules/samtools_sort.smk"
 include: "workflow/rules/picard_markduplicates.smk"
 include: "workflow/rules/picard_add_readgroups.smk"
 include: "workflow/rules/picard_sort_bam.smk"
+include: "workflow/rules/picard_collect_metrics.smk"
+include: "workflow/rules/picard_collect_insertsize.smk"
+include: "workflow/rules/samtools_depth.smk"
 include: "workflow/rules/common.smk"
 
 ##### Import samples based on config file #####
@@ -85,6 +88,18 @@ if config["import"] and config["trimming"]["trim"]:
             expand(
                 os.path.join(config["outdir"],"preprocessed/markduplicates/{sample}_sorted_dedup_reads.bam"),
                 sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"], "preprocessed/metrics/{sample}_alignment_metrics.txt"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"], "preprocessed/metrics/{sample}_insert_metrics.txt"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"], "preprocessed/metrics/{sample}_depth_out.txt"),
+                sample=SAMPLES
             )
 elif not config["import"] and config["trimming"]["trim"]:
     rule all:
@@ -119,6 +134,18 @@ elif not config["import"] and config["trimming"]["trim"]:
             ),
             expand(
                 os.path.join(config["outdir"],"preprocessed/markduplicates/{sample}_sorted_dedup_reads.bam"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"], "preprocessed/metrics/{sample}_alignment_metrics.txt"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"], "preprocessed/metrics/{sample}_insert_metrics.txt"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"], "preprocessed/metrics/{sample}_depth_out.txt"),
                 sample=SAMPLES
             )
 elif config["import"] and not config["trimming"]["trim"]:
@@ -156,6 +183,18 @@ elif config["import"] and not config["trimming"]["trim"]:
             expand(
                 os.path.join(config["outdir"],"preprocessed/markduplicates/{sample}_sorted_dedup_reads.bam"),
                 sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"], "preprocessed/metrics/{sample}_alignment_metrics.txt"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"], "preprocessed/metrics/{sample}_insert_metrics.txt"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"], "preprocessed/metrics/{sample}_depth_out.txt"),
+                sample=SAMPLES
             )
 else:
     rule all:
@@ -183,5 +222,17 @@ else:
             ),
             expand(
                 os.path.join(config["outdir"],"preprocessed/markduplicates/{sample}_sorted_dedup_reads.bam"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"], "preprocessed/metrics/{sample}_alignment_metrics.txt"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"], "preprocessed/metrics/{sample}_insert_metrics.txt"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"], "preprocessed/metrics/{sample}_depth_out.txt"),
                 sample=SAMPLES
             )
