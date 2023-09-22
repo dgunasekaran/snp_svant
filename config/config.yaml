@@ -39,4 +39,4 @@ indel_filters:
 
 reference:
   genome: "resources/genome/C_albicans_SC5314_A21_current_chromosomes_without_mt.fasta"
-
+  genome_gridss: "resources/genome_gridss/C_albicans_SC5314_A21_current_chromosomes_without_mt.fasta"
