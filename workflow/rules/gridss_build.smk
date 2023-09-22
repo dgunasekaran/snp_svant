@@ -10,4 +10,4 @@ rule gridss_build:
     log:
         "log/gridss/setupreference.log"
     wrapper:
-        "v2.2.1/bio/gridss/setupreference"
+        "master/bio/gridss/setupreference"
