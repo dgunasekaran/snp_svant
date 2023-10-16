@@ -34,7 +34,6 @@ include: "workflow/rules/gatk_selectvariants.smk"
 include: "workflow/rules/gatk_filtervariants.smk"
 include: "workflow/rules/gatk_baserecalibrator.smk"
 include: "workflow/rules/gridss_build.smk"
-#include: "workflow/rules/gridss_structural_variants.smk"
 include: "workflow/rules/gridss_svs_custom.smk"
 include: "workflow/rules/common.smk"
 
