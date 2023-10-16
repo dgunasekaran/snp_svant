@@ -1,0 +1,3 @@
+Sat Jul 29 14:37:16 PDT 2023: Full log file is: ./gridss.full.20230729_143716.Deepikas-MacBook-Pro.local.71992.log
+Sat Jul 29 14:37:16 PDT 2023: Found /usr/bin/time
+Sat Jul 29 14:37:16 PDT 2023: Unable to find gridss jar. Specify using the environment variant GRIDSS_JAR, or the --jar command line parameter.
