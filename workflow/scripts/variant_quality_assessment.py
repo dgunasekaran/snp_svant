@@ -17,6 +17,19 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 
+class Parser:
+    @staticmethod
+    def parse_arguments():
+        parser = argparse.ArgumentParser(description="This program parses VCF files and returns aligned fasta")
+        parser.add_argument('-i', '--input', type=str,
+                            help='Input VCF file',
+                            required=True)
+        parser.add_argument('-o', '--output', type=str, help='Output filename. Default: "test/vcf_qc.png"',
+                            required=False)
+        args = parser.parse_args()
+        return args
+
+
 def extract_values_from_vcf(vcf_path, info_field):
     vcf_reader = vcf.Reader(open(vcf_path, 'r'))
     values = []
@@ -27,9 +40,8 @@ def extract_values_from_vcf(vcf_path, info_field):
 
 
 def main():
-    # Replace 'your_file.vcf' with the path to your VCF file
-    #vcf_file = vcf.Reader(open('../../test/preprocessed/SRR7801919_filtered_snps_final.vcf', 'r'))
-    vcf_file = "../../test/SRR7801919_raw_snps_recal.vcf"
+    prog_args = Parser.parse_arguments()
+    vcf_file = prog_args.input
 
     # Thresholds
     mq_threshold = 40
@@ -107,11 +119,7 @@ def main():
     # Adjust layout and display the plot
     plt.tight_layout()
     #plt.show()
-    plt.savefig('../../results/Figure_3.png', dpi=300, bbox_inches='tight')
-
-
-
-
+    plt.savefig(prog_args.output, dpi=300, bbox_inches='tight')
     return
 
 
