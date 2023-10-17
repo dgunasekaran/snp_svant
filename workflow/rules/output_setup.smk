@@ -1,6 +1,6 @@
 import os
 
-rule fq_dump:
+rule make_output_dir:
     output:
         base_dir=os.path.join(config["outdir"],"preprocessed/"),
         align_dir=os.path.join(config["outdir"],"preprocessed/mapped"),
