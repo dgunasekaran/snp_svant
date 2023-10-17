@@ -10,9 +10,20 @@ rule download_vep_plugins:
         "v2.6.0/bio/vep/plugins"
 
 
+rule zip_vcf:
+    input:
+        os.path.join(config["outdir"],"preprocessed/final_variants/{sample}_filtered_snps_final.vcf"),
+    output:
+        os.path.join(config["outdir"],"preprocessed/final_variants/{sample}_filtered_snps_final.vcf.gz"),
+    shell:
+        '''
+        bgzip -c {input.vcf} > {output.vcf_gz}
+        '''
+
+
 rule vep_wrapper:
     input:
-        calls=os.path.join(config["outdir"], "preprocessed/final_variants/{sample}_filtered_snps_final.vcf"),
+        calls=os.path.join(config["outdir"], "preprocessed/final_variants/{sample}_filtered_snps_final.vcf.gz"),
         fasta=config["reference"]["genome"],
         fai=config["reference"]["genome"]+".fai", # fasta index
         gff=config["reference"]["gff"],
@@ -26,6 +37,6 @@ rule vep_wrapper:
     log:
         os.path.join(config["logs"],"vep_{sample}.log")
     threads:
-        config["threads"]
+        4
     wrapper:
         "v2.6.0/bio/vep/annotate"
