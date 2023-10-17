@@ -1,3 +1,4 @@
+options(repos = c(CRAN = "https://cloud.r-project.org"))
 
 # Source: https://github.com/trevorld/r-argparse
 if (!require("argparse", quietly = TRUE)) {
