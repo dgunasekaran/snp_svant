@@ -12,9 +12,9 @@ rule download_vep_plugins:
 
 rule zip_vcf:
     input:
-        os.path.join(config["outdir"],"preprocessed/final_variants/{sample}_filtered_snps_final.vcf"),
+        vcf=os.path.join(config["outdir"],"preprocessed/final_variants/{sample}_filtered_snps_final.vcf"),
     output:
-        os.path.join(config["outdir"],"preprocessed/final_variants/{sample}_filtered_snps_final.vcf.gz"),
+        vcf_gz=os.path.join(config["outdir"],"preprocessed/final_variants/{sample}_filtered_snps_final.vcf.gz"),
     shell:
         '''
         bgzip -c {input.vcf} > {output.vcf_gz}
