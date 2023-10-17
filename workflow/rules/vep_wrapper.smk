@@ -5,7 +5,7 @@ rule download_vep_plugins:
     output:
         directory("resources/vep/plugins")
     params:
-        release=100
+        release=104
     wrapper:
         "v2.6.0/bio/vep/plugins"
 
@@ -21,6 +21,7 @@ rule vep_wrapper:
         calls=os.path.join(config["outdir"],"preprocessed/vep_genes/{sample}_snps_vep.vcf"),
         stats=os.path.join(config["outdir"],"preprocessed/vep_genes/{sample}_snps.html"),
     params:
+        plugins = ["LoFtool"],
         extra="--everything",  # optional: extra arguments
     log:
         os.path.join(config["logs"],"vep_{sample}.log")
