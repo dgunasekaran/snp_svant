@@ -22,6 +22,6 @@ rule vep_custom:
         bgzip -c {config[reference][genome]} > {params.fasta_gz}
         bgzip -c {input.vcf} > {output.vcf_gz}
         echo {wildcards.sample}
-        ./external_tools/ensembl-vep/vep -i {output.vcf_gz} --fasta {output.fasta_gz} --gff {output.gff_gz} --stats_file {output.stats_file} -o {output.vep_txt}
+        ./external_tools/ensembl-vep/vep -i {output.vcf_gz} --fasta {params.fasta_gz} --gff {params.gff_gz} --stats_file {output.stats_file} -o {output.vep_txt}
         '''
 
