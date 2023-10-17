@@ -4,7 +4,6 @@ import os
 rule vep_wrapper:
     input:
         calls=os.path.join(config["outdir"], "preprocessed/final_variants/{sample}_filtered_snps_final.vcf"),
-        plugins="resources/vep/plugins",
         fasta=config["reference"]["genome"],
         fai=config["reference"]["genome"]+".fai", # fasta index
         gff=config["reference"]["gff"],
