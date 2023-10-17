@@ -1,4 +1,3 @@
-library(ggplot2)
 library(stringr)
 library(argparse)
 library(VariantAnnotation)
