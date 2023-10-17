@@ -1,6 +1,8 @@
 import os
 
 rule make_output_dir:
+    input:
+        out_dir = config["outdir"],
     output:
         touch(".mkdir.chkpnt")
     params:
@@ -15,7 +17,6 @@ rule make_output_dir:
         variant_dir=os.path.join(config["outdir"],"preprocessed/final_variants"),
         gridss_dir=os.path.join(config["outdir"],"preprocessed/gridss"),
         vep_dir=os.path.join(config["outdir"],"preprocessed/vep_genes"),
-        out_dir=config["outdir"],
     shell:
         '''
         mkdir -p {output} {params}
