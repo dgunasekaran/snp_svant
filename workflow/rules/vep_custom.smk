@@ -16,11 +16,11 @@ rule vep_custom:
         config["threads"]
     shell:
         '''
-        grep -v "#" {config[reference][gff]} | sort -k1,1 -k4,4n | bgzip -c > {output.gff_gz}
+        grep -v "#" {config["reference"]["gff"]} | sort -k1,1 -k4,4n | bgzip -c > {output.gff_gz}
         tabix -p gff {output.gff_gz}
-        bgzip -c {config[reference][genome]} > {output.fasta_gz}
+        bgzip -c {config["reference"]["genome"]} > {output.fasta_gz}
         bgzip -c {input.vcf} > {output.vcf_gz}
-        ./external_tools/ensembl-vep/vep -i {output.vcf_gz} --fasta {output.fasta_gz} --gff {output.gff_gz} \
-        --stats_file {output.stats_file} -o {output.vep_txt}
+        echo {wildcards.sample}
+        ./external_tools/ensembl-vep/vep -i {output.vcf_gz} --fasta {output.fasta_gz} --gff {output.gff_gz} --stats_file {output.stats_file} -o {output.vep_txt}
         '''
 
