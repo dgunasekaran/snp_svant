@@ -291,17 +291,6 @@ elif config["import"] and not config["trimming"]["trim"]:
 else:
     rule all:
         input:
-            os.path.join(config["outdir"],"preprocessed/"),
-            os.path.join(config["outdir"],"preprocessed/mapped"),
-            os.path.join(config["outdir"],"preprocessed/markduplicates"),
-            os.path.join(config["outdir"],"preprocessed/metrics"),
-            os.path.join(config["outdir"],"preprocessed/3_hapcaller_r1"),
-            os.path.join(config["outdir"],"preprocessed/bqsr_r1"),
-            os.path.join(config["outdir"],"preprocessed/hapcaller_r2"),
-            os.path.join(config["outdir"],"preprocessed/bqsr_r2"),
-            os.path.join(config["outdir"],"preprocessed/final_variants"),
-            os.path.join(config["outdir"],"preprocessed/gridss"),
-            os.path.join(config["outdir"],"preprocessed/vep_genes"),
             expand(
                 os.path.join(config["outdir"],"preprocessed/mapped/{sample}_aligned.bam"),
                 sample=SAMPLES
