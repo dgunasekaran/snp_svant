@@ -303,11 +303,6 @@ else:
             os.path.join(config["outdir"],"preprocessed/gridss"),
             os.path.join(config["outdir"],"preprocessed/vep_genes"),
             expand(
-                os.path.join(config["input_dir"],"{sample}_{read}.fastq"),
-                sample=SAMPLES,
-                read=[1, 2]
-            ),
-            expand(
                 os.path.join(config["outdir"],"preprocessed/mapped/{sample}_aligned.bam"),
                 sample=SAMPLES
             ),
