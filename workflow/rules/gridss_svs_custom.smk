@@ -28,6 +28,6 @@ rule gridss_custom:
         echo {wildcards.sample}
         ./external_tools/gridss_v_2_12_0/gridss -j external_tools/gridss_v_2_12_0/gridss-2.12.0-gridss-jar-with-dependencies.jar -r {input.reference} \
         -o {output.vcf} -a {output.bam} -w {params.out_dir} {input.align_bam}
-        Rscript wworkflow/scripts/sv_annotation.R --vcf {output.vcf} --output_prefix {params.vep_out_dir}
+        Rscript workflow/scripts/sv_annotation.R --vcf {output.vcf} --output_prefix {params.vep_out_dir}
         '''
 
