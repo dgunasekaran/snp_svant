@@ -36,6 +36,7 @@ include: "workflow/rules/gatk_baserecalibrator.smk"
 include: "workflow/rules/gridss_build.smk"
 include: "workflow/rules/gridss_svs_custom.smk"
 include: "workflow/rules/common.smk"
+include: "workflow/rules/vep_custom.smk"
 
 ##### Import samples based on config file #####
 
@@ -131,6 +132,10 @@ if config["import"] and config["trimming"]["trim"]:
             expand(
                 os.path.join(config["outdir"], "preprocessed/gridss/{sample}_aligned.bam"),
                 sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/vep_genes/{sample}_snps_vep.txt"),
+                sample=SAMPLES
             )
 elif not config["import"] and config["trimming"]["trim"]:
     rule all:
@@ -200,6 +205,10 @@ elif not config["import"] and config["trimming"]["trim"]:
             ),
             expand(
                 os.path.join(config["outdir"], "preprocessed/gridss/{sample}_aligned.bam"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/vep_genes/{sample}_snps_vep.txt"),
                 sample=SAMPLES
             )
 elif config["import"] and not config["trimming"]["trim"]:
@@ -273,6 +282,10 @@ elif config["import"] and not config["trimming"]["trim"]:
             expand(
                 os.path.join(config["outdir"], "preprocessed/gridss/{sample}_aligned.bam"),
                 sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/vep_genes/{sample}_snps_vep.txt"),
+                sample=SAMPLES
             )
 else:
     rule all:
@@ -343,6 +356,10 @@ else:
             ),
             expand(
                 os.path.join(config["outdir"], "preprocessed/gridss/{sample}_aligned.bam"),
+                sample=SAMPLES
+            ),
+            expand(
+                os.path.join(config["outdir"],"preprocessed/vep_genes/{sample}_snps_vep.txt"),
                 sample=SAMPLES
             )
 

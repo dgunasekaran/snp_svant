@@ -91,6 +91,12 @@ properties:
       genome:
         type: string
         description: Genome fasta file to use as reference
+      genome_gridss:
+        type: string
+        description: Genome fasta file to use as reference for GRIDSS
+      gff:
+        type: string
+        description: GFF file to use as reference for annotation
 
   snp_filters:
     type: object
@@ -117,6 +123,7 @@ properties:
         type: string
       SOR_filter:
         type: string
+
 
 
 validate:
