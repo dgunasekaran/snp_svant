@@ -14,9 +14,9 @@ rule gridss_custom:
     output:
         bam = os.path.join(config["outdir"],"preprocessed/gridss/{sample}_aligned.bam"),
         vcf=os.path.join(config["outdir"], "preprocessed/gridss/{sample}.vcf"),
-        vep=os.path.join(config["outdir"], "preprocessed/gridss/{sample}"),
     params:
-        out_dir=os.path.join(config["outdir"], "preprocessed/gridss/")
+        out_dir=os.path.join(config["outdir"], "preprocessed/gridss/"),
+        vep_out_dir=os.path.join(config["outdir"],"preprocessed/gridss/{sample}"),
     log:
         os.path.join(config["logs"],"gridss_{sample}.log")
     threads:
@@ -28,6 +28,6 @@ rule gridss_custom:
         echo {wildcards.sample}
         ./external_tools/gridss_v_2_12_0/gridss -j external_tools/gridss_v_2_12_0/gridss-2.12.0-gridss-jar-with-dependencies.jar -r {input.reference} \
         -o {output.vcf} -a {output.bam} -w {params.out_dir} {input.align_bam}
-        Rscript wworkflow/scripts/sv_annotation.R --vcf {output.vcf} --output_prefix {output.vep}
+        Rscript wworkflow/scripts/sv_annotation.R --vcf {output.vcf} --output_prefix {params.vep_out_dir}
         '''
 
