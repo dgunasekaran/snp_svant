@@ -1,6 +1,6 @@
 import os
 
-rule samtools_index:
+rule samtools_aligned_index:
     input:
         os.path.join(config["outdir"], "preprocessed/mapped/{sample}_aligned_sorted.bam"),
     output:
