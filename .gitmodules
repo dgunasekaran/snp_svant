@@ -1,3 +1,0 @@
-[submodule "external_tools/ensembl-vep"]
-	path = external_tools/ensembl-vep
-	url = https://github.com/Ensembl/ensembl-vep.git
