@@ -62,17 +62,6 @@ INDEX = list(range(1,5))
 if config["import"] and config["trimming"]["trim"]:
     rule all:
         input:
-            os.path.join(config["outdir"],"preprocessed/"),
-            os.path.join(config["outdir"],"preprocessed/mapped"),
-            os.path.join(config["outdir"],"preprocessed/markduplicates"),
-            os.path.join(config["outdir"],"preprocessed/metrics"),
-            os.path.join(config["outdir"],"preprocessed/3_hapcaller_r1"),
-            os.path.join(config["outdir"],"preprocessed/bqsr_r1"),
-            os.path.join(config["outdir"],"preprocessed/hapcaller_r2"),
-            os.path.join(config["outdir"],"preprocessed/bqsr_r2"),
-            os.path.join(config["outdir"],"preprocessed/final_variants"),
-            os.path.join(config["outdir"],"preprocessed/gridss"),
-            os.path.join(config["outdir"],"preprocessed/vep_genes"),
             expand(
                 os.path.join(config["outdir"], "raw/{sample}_{read}.fastq"),
                 sample=SAMPLES,
@@ -141,17 +130,6 @@ if config["import"] and config["trimming"]["trim"]:
 elif not config["import"] and config["trimming"]["trim"]:
     rule all:
         input:
-            os.path.join(config["outdir"],"preprocessed/"),
-            os.path.join(config["outdir"],"preprocessed/mapped"),
-            os.path.join(config["outdir"],"preprocessed/markduplicates"),
-            os.path.join(config["outdir"],"preprocessed/metrics"),
-            os.path.join(config["outdir"],"preprocessed/3_hapcaller_r1"),
-            os.path.join(config["outdir"],"preprocessed/bqsr_r1"),
-            os.path.join(config["outdir"],"preprocessed/hapcaller_r2"),
-            os.path.join(config["outdir"],"preprocessed/bqsr_r2"),
-            os.path.join(config["outdir"],"preprocessed/final_variants"),
-            os.path.join(config["outdir"],"preprocessed/gridss"),
-            os.path.join(config["outdir"],"preprocessed/vep_genes"),
             expand(os.path.join(config["outdir"], "preprocessed/trimmomatic/{sample}_trimmed_{read}.fastq"),
                 sample=SAMPLES,
                 read=[1, 2]
@@ -215,17 +193,6 @@ elif not config["import"] and config["trimming"]["trim"]:
 elif config["import"] and not config["trimming"]["trim"]:
     rule all:
         input:
-            os.path.join(config["outdir"],"preprocessed/"),
-            os.path.join(config["outdir"],"preprocessed/mapped"),
-            os.path.join(config["outdir"],"preprocessed/markduplicates"),
-            os.path.join(config["outdir"],"preprocessed/metrics"),
-            os.path.join(config["outdir"],"preprocessed/3_hapcaller_r1"),
-            os.path.join(config["outdir"],"preprocessed/bqsr_r1"),
-            os.path.join(config["outdir"],"preprocessed/hapcaller_r2"),
-            os.path.join(config["outdir"],"preprocessed/bqsr_r2"),
-            os.path.join(config["outdir"],"preprocessed/final_variants"),
-            os.path.join(config["outdir"],"preprocessed/gridss"),
-            os.path.join(config["outdir"],"preprocessed/vep_genes"),
             expand(
                 os.path.join(config["outdir"], "raw/{sample}_{read}.fastq"),
                 sample=SAMPLES,
