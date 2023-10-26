@@ -6,40 +6,40 @@ SNP-SVant is a variant calling workflow that can be used to identify SNPs and SV
 
 Download git repository using the following commands:
 
-'''
+```
 git clone https://github.com/dgunasekaran/snp_svant
-'''
+```
 
 Setup Conda environment and install R packages using the following commands:
 
-'''
+```
 cd snp_svant
 conda env create -f workflow/envs/environment.yaml
 conda activate snp_svant
 Rscript workflow/scripts/install_r_packages.R
-'''
+```
 
 # USAGE:
 
 Before performing variant calling, build genome indices using the command:
 
-'''
+```
 snakemake --cores <number_of_threads> build --use-conda
-'''
+```
 
 Modify parameters in the `config/config.yaml` file to refer to input and output paths, modify variant filteration criteria and refering to genome fasta and annotation files. The description of the parameters are given in `workflow/schemas/config.schemas.yaml`. Run the workflow using command:
 
-'''
+```
 snakemake --cores <number_of_threads> all --use-conda
-'''
+```
 
 To generate graphs of QC metrics from GATK, create conda environment and use the commands:
 
-'''
+```
 conda create -n vcf_qc python pyvcf pandas argparse seaborn
 conda activate vcf_qc
 python workflow/scripts/variant_quality_assessment.py -i <input_vcf> -o <output_vcf> 
-'''
+```
 
 # RESOURCES:
 
@@ -54,9 +54,9 @@ python workflow/scripts/variant_quality_assessment.py -i <input_vcf> -o <output_
 
 1. If ImportError occurs while importing required packages, update Mamba in the Conda environment or re-install Mamba using the following command:
 
-'''
+```
 conda install mamba -c conda-forge
-'''
+```
 
 1. If output files are incomplete or if run crashes unexpectedly, re-run the pipeline or use additional parameter `--rerun-incomplete` to regenerate incomplete files.
 
