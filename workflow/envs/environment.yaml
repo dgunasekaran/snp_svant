@@ -5,3 +5,4 @@ dependencies:
   - trimmomatic >=0.39
   - r-base >=4.3.1
   - pkg-config >=0.29.2
+  - bwa >=0.7.17
