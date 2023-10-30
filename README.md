@@ -53,13 +53,12 @@ python workflow/scripts/variant_quality_assessment.py -i <input_vcf> -o <output_
 # TROUBLESHOOTING:
 
 1. If ImportError occurs while importing required packages, update Mamba in the Conda environment or re-install Mamba using the following command:
-
 ```
 conda install mamba -c conda-forge
 ```
 
-1. If output files are incomplete or if run crashes unexpectedly, re-run the pipeline or use additional parameter `--rerun-incomplete` to regenerate incomplete files.
+2. If output files are incomplete or if run crashes unexpectedly, re-run the pipeline or use additional parameter `--rerun-incomplete` to regenerate incomplete files.
 
-1. If output from VEP is not generated and SNPs are not annotated, it is likely due to missing PERL dependencies required to run VEP. You can refer to VEP installation [here](https://useast.ensembl.org/info/docs/tools/vep/index.html), to install PERL module dependencies or re-run VEP outside the workflow. 
+3. If output from VEP is not generated and SNPs are not annotated, it is likely due to missing PERL dependencies required to run VEP. You can refer to VEP installation [here](https://useast.ensembl.org/info/docs/tools/vep/index.html), to install PERL module dependencies or re-run VEP outside the workflow. 
 
 
