@@ -13,7 +13,7 @@ if config["import"]:
         threads:
             config["threads"]
         conda:
-            "snp_svaunt"
+            "snp_svant"
         shell:
             '''
             mkdir -p {params.out_dir}
