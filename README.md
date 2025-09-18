@@ -57,8 +57,15 @@ python workflow/scripts/variant_quality_assessment.py -i <input_vcf> -o <output_
 conda install mamba -c conda-forge
 ```
 
-2. If output files are incomplete or if run crashes unexpectedly, re-run the pipeline or use additional parameter `--rerun-incomplete` to regenerate incomplete files.
+2. If you encounter dependecy issues with R packages, you can use the locked conda environment (after installing conda-lock) as follows:
+```
+pip install conda-lock
+conda-lock install --name snp_svant_lock workflow/envs/snp_svant-lock.yml
+conda activate snp_svant_lock
+```
 
-3. If output from VEP is not generated and SNPs are not annotated, it is likely due to missing PERL dependencies required to run VEP. You can refer to VEP installation [here](https://useast.ensembl.org/info/docs/tools/vep/index.html), to install PERL module dependencies or re-run VEP outside the workflow. 
+3. If output files are incomplete or if run crashes unexpectedly, re-run the pipeline or use additional parameter `--rerun-incomplete` to regenerate incomplete files.
+
+4. If output from VEP is not generated and SNPs are not annotated, it is likely due to missing PERL dependencies required to run VEP. You can refer to VEP installation [here](https://useast.ensembl.org/info/docs/tools/vep/index.html), to install PERL module dependencies or re-run VEP outside the workflow. 
 
 
