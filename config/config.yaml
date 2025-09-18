@@ -1,3 +1,5 @@
+system: "linux" # or macOS
+
 samples:
   metadata: "test/metadata/test_samples.tsv"
   header: False
