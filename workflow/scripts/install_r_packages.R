@@ -1,6 +1,14 @@
-BiocManager::install(version = '3.17', ask=FALSE)
-
 options(repos = c(CRAN = "https://cloud.r-project.org"))
+
+# findpython package dependency for argparse
+if (!require("findpython", quietly = TRUE)) {
+  install.packages("https://cran.r-project.org/src/contrib/Archive/findpython/findpython_1.0.8.tar.gz", repos=NULL, type="source")
+}
+
+# jsonlite dependency for argparse
+if (!require("jsonlite", quietly = TRUE)) {
+  install.packages("https://cran.r-project.org/src/contrib/Archive/jsonlite/jsonlite_1.8.7.tar.gz", repos=NULL, type="source")
+}
 
 # Source: https://github.com/trevorld/r-argparse
 if (!require("argparse", quietly = TRUE)) {
